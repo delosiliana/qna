@@ -14,5 +14,15 @@ module Qna
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    # config generate testing controller
+    config.generators do |g|
+      g.test_framework :rspec,
+                      fixtures: true,
+                      view_spec: false,
+                      helper_spec: false,
+                      routing_spec: false,
+                      controller_spec: true
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
+    end
   end
 end
