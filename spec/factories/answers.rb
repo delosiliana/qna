@@ -3,7 +3,7 @@ FactoryBot.define do
     body "MyText"
 
     factory :invalid_answer do
-    body nil
+      body nil
     end
   end
 end
