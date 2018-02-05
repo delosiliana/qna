@@ -62,7 +62,7 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with valid attributes' do
       it 'saves the new question in the database' do
-        expect { post :create, params: { question: attributes_for(:question) } }.to change(Question, :count).by(1)
+        expect { post :create, params: { question: attributes_for(:question) } }.to change(@user.questions, :count).by(1)
       end
 
       it 'redirects to view' do
@@ -115,7 +115,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it 'redirects to the updated question' do
-        patch :update, params: { id: question,  question: attributes_for(:question) }
+        patch :update, params: { id: question, question: attributes_for(:question) }
         expect(response).to redirect_to question
       end
     end
