@@ -1,0 +1,16 @@
+h1 Question
+
+p = @question.title
+p = @question.body
+
+h3 Answers
+
+- @question.answers.each do |answer|
+  p = answer.body
+
+= form_for [@question, @answer] do |f|
+  p = f.label :body, 'Your answer'
+  p = f.text_area :body
+  p = f.submit 'Answer'
+
+  
