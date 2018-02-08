@@ -13,6 +13,7 @@ feature 'Delete question only author', %{
   scenario 'To delete question which is not the author' do
     sign_in(no_author)
     visit question_path(question)
+
     expect(page).to have_no_content 'Delete'
   end
 
@@ -20,11 +21,13 @@ feature 'Delete question only author', %{
     sign_in(user)
     visit question_path(question)
     click_on 'Delete question'
+
     expect(page).to have_no_content (question.title)
   end
 
   scenario 'Delete question which is not authenticated user' do
     visit question_path(question)
+    
     expect(page).to have_no_content 'Delete question'
   end
 end
