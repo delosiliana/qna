@@ -1,10 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :destroy]
-  before_action :load_answer, only: [:destroy]
-
-  def new
-    @answer = Answer.new
-  end
+  before_action :authenticate_user!
 
   def create
     @question = Question.find(params[:question_id])
@@ -19,6 +14,7 @@ class AnswersController < ApplicationController
   end
 
   def destroy
+    @answer = Answer.find(params[:id])
     if current_user.author?(@answer)
       @answer.destroy
     end
@@ -29,9 +25,5 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body)
-  end
-
-  def load_answer
-    @answer = Answer.find(params[:id])
   end
 end
