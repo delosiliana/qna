@@ -24,7 +24,7 @@ feature 'Delete answer only author', %q{
     visit question_path(question)
     click_on 'Delete answer'
 
-    expect(page).to have_no_content (answer.body)
+    expect(page).to have_no_content(answer.body)
   end
 
   scenario 'Delete answer which is not authenticated user' do

@@ -11,7 +11,7 @@ RSpec.describe User, type: :model do
   let(:no_author) { create :user}
   let(:answer) { create(:answer, question: question, user: user) }
 
-  describe '#author? method for question' do
+  context '#author? method for question' do
     it 'return true if user author resource' do
       expect(user.author?(question)).to be true
     end
@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#author? method for answer' do
+  context '#author? method for answer' do
     it 'return true if user author resource' do
       expect(user.author?(answer)).to be true
     end
