@@ -3,11 +3,10 @@ FactoryBot.define do
     sequence(:title) { |n| "Title #{n}" }
     sequence(:body) { |n| "MyText #{n}" }
     user
-  end
 
-  factory :invalid_question, class: Question do
-    title nil
-    body nil
-    user
+    factory :invalid_question do
+      title nil
+      body nil
+    end
   end
 end
