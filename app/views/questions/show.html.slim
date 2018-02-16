@@ -1,7 +1,7 @@
 h1 Question
 
 - if current_user&.author?(@question)
-  = link_to 'Delete question', question_path, method: :delete
+  = link_to 'Delete question', @question, method: :delete, data: { confirm: 'Are you sure?' }
 
 p = @question.title
 p = @question.body
@@ -12,8 +12,7 @@ h3 Answers
   - if answer.persisted?
     p = answer.body
     - if current_user&.author?(answer)
-      = link_to 'Delete answer', answer, method: :delete
-
+      = link_to 'Delete answer', answer, method: :delete, data: { confirm: 'Are you sure?' }
 
 = form_for [@question, @answer] do |f|
   p = f.label :body, 'Your answer'
