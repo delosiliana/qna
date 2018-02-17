@@ -19,7 +19,7 @@ feature 'Delete answer only author', %q{
     expect(page).to have_no_content 'Delete answer'
   end
 
-  scenario 'To delete answer which is the author' do
+  scenario 'Non author could not see the link to delete' do
     sign_in(user)
     visit question_path(question)
     click_on 'Delete answer'
