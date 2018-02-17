@@ -9,10 +9,9 @@ p = @question.body
 h3 Answers
 
 - @question.answers.each do |answer|
-  - if answer.persisted?
-    p = answer.body
-    - if current_user&.author?(answer)
-      = link_to 'Delete answer', answer, method: :delete, data: { confirm: 'Are you sure?' }
+  p = answer.body
+  - if current_user&.author?(answer)
+    = link_to 'Delete answer', answer, method: :delete, data: { confirm: 'Are you sure?' }
 
 = form_for [@question, @answer] do |f|
   p = f.label :body, 'Your answer'
