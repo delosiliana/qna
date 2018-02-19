@@ -11,11 +11,14 @@ h3 Answers
 - @question.answers.each do |answer|
   p = answer.body
   - if current_user&.author?(answer)
-    = link_to 'Delete answer', answer, method: :delete, data: { confirm: 'Are you sure?' }
+    = link_to 'Delete answer', answer.question, method: :delete, data: { confirm: 'Are you sure?' }
 
 = form_for [@question, @answer] do |f|
+  = render 'common/errors', resource: @answer
   p = f.label :body, 'Your answer'
   p = f.text_area :body
   p = f.submit 'Answer'
+
+
 
 
