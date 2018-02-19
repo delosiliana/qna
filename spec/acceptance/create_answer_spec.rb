@@ -36,4 +36,3 @@ feature 'Create answer for question', %q{
   end
 end
 
-
