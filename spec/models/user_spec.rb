@@ -13,21 +13,11 @@ RSpec.describe User, type: :model do
 
   context '#author? method for question' do
     it 'return true if user author resource' do
-      expect(user.author?(question)).to be true
+      expect(user).to be_author(question)
     end
 
     it 'return false if user no author resource' do
       expect(no_author.author?(question)).to be false
-    end
-  end
-
-  context '#author? method for answer' do
-    it 'return true if user author resource' do
-      expect(user.author?(answer)).to be true
-    end
-
-    it 'return false if user no author resource' do
-      expect(no_author.author?(answer)).to be false
     end
   end
 end
