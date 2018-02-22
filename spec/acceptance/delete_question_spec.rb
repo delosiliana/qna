@@ -10,14 +10,14 @@ feature 'Delete question only author', %{
   given(:no_author) { create :user }
   given(:question) { create(:question, user: user) }
 
-  scenario 'To delete question which is not the author' do
+  scenario 'Non author want to delete question' do
     sign_in(no_author)
     visit question_path(question)
 
     expect(page).to have_no_content 'Delete'
   end
 
-  scenario 'To delete question which is the author' do
+  scenario 'Author delete question' do
     sign_in(user)
     visit question_path(question)
     click_on 'Delete question'
@@ -25,9 +25,9 @@ feature 'Delete question only author', %{
     expect(page).to have_no_content (question.title)
   end
 
-  scenario 'Delete question which is not authenticated user' do
+  scenario 'Not authenticated user delete question' do
     visit question_path(question)
-    
+
     expect(page).to have_no_content 'Delete question'
   end
 end

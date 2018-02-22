@@ -12,14 +12,14 @@ feature 'Delete answer only author', %q{
   given!(:answer) { create(:answer, user: user, question: question) }
 
 
-  scenario 'To delete answer which is not the author' do
+  scenario 'Non author want to delete answer' do
     sign_in(no_author)
     visit question_path(question)
 
     expect(page).to have_no_content 'Delete answer'
   end
 
-  scenario 'Non author could not see the link to delete' do
+  scenario 'Author delete answer' do
     sign_in(user)
     visit question_path(question)
     click_on 'Delete answer'
@@ -27,7 +27,7 @@ feature 'Delete answer only author', %q{
     expect(page).to have_no_content(answer.body)
   end
 
-  scenario 'Delete answer which is not authenticated user' do
+  scenario 'Non authenticated user want delete answer' do
     visit question_path(question)
 
     expect(page).to have_no_content 'Delete answer'
