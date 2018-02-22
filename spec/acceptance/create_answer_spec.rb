@@ -17,6 +17,7 @@ feature 'Create answer for question', %q{
     click_on 'Answer'
 
     expect(page).to have_content 'Your answer successfully created'
+    expect(page).to have_content 'Answer text'
   end
 
   scenario 'The authenticated user tries to create a invalid answer' do
