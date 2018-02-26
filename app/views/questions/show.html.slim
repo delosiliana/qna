@@ -8,12 +8,10 @@ p = @question.body
 
 h3 Answers
 
-- @question.answers.each do |answer|
-  p = answer.body
-  - if current_user&.author?(answer)
-    = link_to 'Delete answer', answer.question, method: :delete, data: { confirm: 'Are you sure?' }
+.answers
+  = render @question.answers
 
-= form_for [@question, @answer] do |f|
+= form_for [@question, @answer], remote: true do |f|
   = render 'common/errors', resource: @answer
   p = f.label :body, 'Your answer'
   p = f.text_area :body

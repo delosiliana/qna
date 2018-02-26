@@ -20,6 +20,7 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'therubyracer', platforms: :ruby
 gem 'devise'
 gem 'jquery-rails'
+gem 'webdrivers', '~> 3.0'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -43,6 +44,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'database_cleaner'
 end
 
 group :test do
