@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'User can view question and answer', %q{
   To view the question with answers
@@ -9,7 +9,7 @@ feature 'User can view question and answer', %q{
 
   scenario 'View question with answers' do
     visit question_path(question)
-    
+
     expect(page).to have_content question.title
 
     answers.each do |answer|
