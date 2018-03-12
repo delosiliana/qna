@@ -1,3 +1,13 @@
-p = answer.body
-- if current_user&.author?(answer)
-  = link_to 'Delete answer', answer.question, method: :delete, data: { confirm: 'Are you sure?' }
+div id="answer-#{answer.id}"
+  - @question.answers.each do |answer|
+  p = answer.body
+  - if current_user&.author?(answer)
+      = link_to 'Delete answer', answer.question, method: :delete, data: { confirm: 'Are you sure?' }
+      = link_to 'Edit ', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+      p
+        = form_for [answer], remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
+          = f.label :body, 'Answer'
+          = f.text_area :body
+          = f.submit 'Save'
+
+
