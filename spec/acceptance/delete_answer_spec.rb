@@ -6,7 +6,7 @@ feature 'Delete answer only author', %q{
   I want to delete my answers
 } do
 
-  given(:user) { create :user }
+  given!(:user) { create :user }
   given(:no_author) { create :user }
   given(:question) { create :question }
   given!(:answer) { create(:answer, user: user, question: question) }
@@ -19,7 +19,7 @@ feature 'Delete answer only author', %q{
     expect(page).to have_no_content 'Delete answer'
   end
 
-  scenario 'Author delete answer' do
+  scenario 'Author delete answer', js: true do
     sign_in(user)
     visit question_path(question)
     click_on 'Delete answer'

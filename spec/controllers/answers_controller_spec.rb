@@ -71,25 +71,19 @@ RSpec.describe AnswersController, type: :controller do
 
     context 'author delete answer' do
       it 'delete answer' do
-        expect { delete :destroy, params: { id: author_answer } }.to change(Answer, :count).by(-1)
+        expect { delete :destroy, params: { id: author_answer, format: :js } }.to change(Answer, :count).by(-1)
       end
 
-      it 'redirect to question' do
-        delete :destroy, params: { id: author_answer }
+      it 'render template destroy' do
+        delete :destroy, params: { id: author_answer, format: :js }
 
-        expect(response).to redirect_to author_answer.question
+        expect(response).to render_template :destroy
       end
     end
 
     context 'no author  tries to delete answer' do
       it 'delete answer' do
-        expect { delete :destroy, params: { id: answer} }.to_not change(Answer, :count)
-      end
-
-      it 'redirect to question' do
-        delete :destroy, params: { id: author_answer }
-
-        expect(response).to redirect_to answer.question
+        expect { delete :destroy, params: { id: answer, format: :js } }.to_not change(Answer, :count)
       end
     end
   end
