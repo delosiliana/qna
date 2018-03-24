@@ -1,11 +1,15 @@
 div id="answer-#{answer.id}"
   - @question.answers.each do |answer|
+  -if answer.best?
+    .best-label
+      p = 'Best answer'
   p = answer.body
+  - if current_user&.author?(answer.question)
+    = link_to 'Note as best', best_answer_path(answer), remote: true, method: :patch, class: 'best-answer-link', data: { answer_id: answer.id }
   - if current_user&.author?(answer)
       = link_to 'Delete answer', answer, remote: true, method: :delete, class: 'delete-answer-link', data: { answer_id: answer.id }
       = link_to 'Edit ', '', class: 'edit-answer-link', data: { answer_id: answer.id }
-      p
-        = form_for [answer], remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
+      p = form_for [answer], remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
           = f.label :body, 'Answer'
           = f.text_area :body
           = f.submit 'Save'

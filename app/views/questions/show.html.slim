@@ -2,11 +2,11 @@ h1 Question
 
 .question
   = render @question
-  
+
 h3 Answers
 
 .answers
-  = render @question.answers
+  = render @question.answers.order(:best)
 
 = form_for [@question, @answer], remote: true do |f|
   = render 'common/errors', resource: @answer
