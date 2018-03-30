@@ -36,6 +36,33 @@ RSpec.describe AnswersController, type: :controller do
     end
   end
 
+  describe 'PATCH #update' do
+    login_user
+    let!(:answer) { create(:answer, question: question) }
+    let!(:answer_author) { create(:answer, question: question, user: @user) }
+
+    it 'assigns the requested answer to @answer' do
+      patch :update, params: { id: answer_author, question_id: question, answer: attributes_for(:answer), format: :js }
+      expect(assigns(:answer)).to eq answer_author
+    end
+
+    it 'assigns  the question' do
+      patch :update, params: { id: answer_author, question_id: question, answer: attributes_for(:answer), format: :js }
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'changes answer attributes' do
+      patch :update, params: { id: answer_author, answer: { body: 'new body' },question_id: question, format: :js }
+      answer_author.reload
+      expect(answer_author.body).to eq 'new body'
+    end
+
+    it 'render update template' do
+      patch :update, params: { id: answer_author, question_id: question, answer: attributes_for(:answer), format: :js }
+      expect(response).to render_template :update
+    end
+  end
+
   describe 'DELETE #destroy' do
     login_user
 
@@ -44,25 +71,45 @@ RSpec.describe AnswersController, type: :controller do
 
     context 'author delete answer' do
       it 'delete answer' do
-        expect { delete :destroy, params: { id: author_answer } }.to change(Answer, :count).by(-1)
+        expect { delete :destroy, params: { id: author_answer, format: :js } }.to change(Answer, :count).by(-1)
       end
 
-      it 'redirect to question' do
-        delete :destroy, params: { id: author_answer }
+      it 'render template destroy' do
+        delete :destroy, params: { id: author_answer, format: :js }
 
-        expect(response).to redirect_to author_answer.question
+        expect(response).to render_template :destroy
       end
     end
 
     context 'no author  tries to delete answer' do
       it 'delete answer' do
-        expect { delete :destroy, params: { id: answer} }.to_not change(Answer, :count)
+        expect { delete :destroy, params: { id: answer, format: :js } }.to_not change(Answer, :count)
+      end
+    end
+  end
+
+  describe 'PATCH #best' do
+    login_user
+    let(:question_user) { create :question, answers: create_list(:answer, 2), user: @user }
+    let(:question) { create :question, answers: create_list(:answer, 2) }
+
+    context 'Author set best answer for question'do
+      it 'set best to true' do
+        patch :best, params: { id: question_user.answers.first, format: :js }
+
+        expect(assigns(:answer)).to be_best
       end
 
-      it 'redirect to question' do
-        delete :destroy, params: { id: author_answer }
+      it 'renders best template' do
+        patch :best, params: { id: question.answers.first, format: :js }
+        expect(response).to render_template :best
+      end
+    end
 
-        expect(response).to redirect_to answer.question
+    context 'no author try to set best answer of question' do
+      it 'best is not set' do
+        patch :best, params: { id: question.answers.first, format: :js }
+        expect(assigns(:answer).best).to eq false
       end
     end
   end

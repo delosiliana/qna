@@ -1,0 +1,6 @@
+$('.best-label').remove();
+
+$('#answer-<%= @answer.id %>').prependTo('.answers');
+$('#answer-<%= @answer.id %>').prepend('<p class="best-label"> Best answer: </p>');
+
+

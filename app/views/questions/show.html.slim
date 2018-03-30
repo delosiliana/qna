@@ -1,15 +1,12 @@
 h1 Question
 
-- if current_user&.author?(@question)
-  = link_to 'Delete question', @question, method: :delete, data: { confirm: 'Are you sure?' }
-
-p = @question.title
-p = @question.body
+.question
+  = render @question
 
 h3 Answers
 
 .answers
-  = render @question.answers
+  = render @question.answers.ordered
 
 = form_for [@question, @answer], remote: true do |f|
   = render 'common/errors', resource: @answer
