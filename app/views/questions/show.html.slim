@@ -6,7 +6,7 @@ h1 Question
 h3 Answers
 
 .answers
-  = render @question.answers.order(:best)
+  = render @question.answers.ordered
 
 = form_for [@question, @answer], remote: true do |f|
   = render 'common/errors', resource: @answer

@@ -7,9 +7,9 @@ class Answer < ApplicationRecord
   scope :ordered, -> { order(best: :desc) }
 
   def best!
-    prev_best = question.answers.where(best: true)
+    prev_best = question.answers.where(best: true).first
     transaction do
-      prev_best.first.update!(best: false) unless prev_best.empty?
+      prev_best&.update!(best: false)
       update!(best: true)
     end
   end
