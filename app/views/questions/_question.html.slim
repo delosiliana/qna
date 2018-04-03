@@ -1,5 +1,10 @@
 p = question.title
 p = question.body
+p Attachments:
+ul
+  - @question.attachments.each do |a|
+    li = a.file.file.filename
+    
 - if current_user&.author?(@question)
   = link_to 'Delete question', question_path, method: :Delete
   = link_to 'Edit question', '', class: 'edit-question-link', data: { question_id: question.id}
