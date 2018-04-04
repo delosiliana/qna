@@ -9,6 +9,7 @@ class QuestionsController < ApplicationController
   def show
     @answer = @question.answers.new
     @answers = @question.answers.select(&:persisted?)
+    @answer.attachments.build
   end
 
   def new

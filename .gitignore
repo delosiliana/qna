@@ -41,6 +41,7 @@ config/private_pub.yml
 /public/spec
 
 
+
 # coverage files
 /coverage
 
