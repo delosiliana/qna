@@ -12,5 +12,7 @@
 //
 //= require jquery
 //= require rails-ujs
+//= require jquery.remotipart
+//= require cocoon
 //= require turbolinks
 //= require_tree .

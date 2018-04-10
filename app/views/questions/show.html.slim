@@ -12,6 +12,12 @@ h3 Answers
   = render 'common/errors', resource: @answer
   p = f.label :body, 'Your answer'
   p = f.text_area :body
+  p
+    = f.fields_for :attachments do |a|
+      = render 'common/attachment_fields', f: a
+  .links
+    = link_to_add_association 'Add file', f, :attachments, partial: 'common/attachment_fields'
+
   p = f.submit 'Answer'
 
 
