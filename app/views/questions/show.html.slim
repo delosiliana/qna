@@ -3,6 +3,15 @@ h1 Question
 .question
   = render @question
 
+p.total_votes data-id=@question.id
+  = @question.votes.sum(:count)
+  .error_vote
+  - if current_user&&!current_user.author?(@question)
+    p.vote_up.vote
+      = link_to 'vote up', polymorphic_path([:vote_up, @question]), method: :post, remote: true
+    p.vote_down.vote
+      = link_to 'vote down', polymorphic_path([:vote_down, @question]), method: :post, remote: true
+
 h3 Answers
 
 .answers
@@ -12,9 +21,8 @@ h3 Answers
   = render 'common/errors', resource: @answer
   p = f.label :body, 'Your answer'
   p = f.text_area :body
-  p
-    = f.fields_for :attachments do |a|
-      = render 'common/attachment_fields', f: a
+  p = f.fields_for :attachments do |a|
+    = render 'common/attachment_fields', f: a
   .links
     = link_to_add_association 'Add file', f, :attachments, partial: 'common/attachment_fields'
 

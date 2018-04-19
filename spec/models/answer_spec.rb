@@ -13,6 +13,7 @@ RSpec.describe Answer, type: :model do
   let(:question) { create :question }
   let(:answer) { create :best_answer, question: question }
   let(:another_answer) { create :answer, question: question }
+  let!(:user) {create(:user) }
 
   describe '#best!' do
     it 'set best answer' do
@@ -29,6 +30,32 @@ RSpec.describe Answer, type: :model do
         another_answer.best!
         expect(question.answers.ordered.first).to eq another_answer
       end
+    end
+  end
+
+  context '.vote' do
+    it 'change votes count' do
+      expect{ another_answer.vote(user, -1) }.to change(Vote, :count).by 1
+    end
+
+    it 'created vote have correct params' do
+      vote = another_answer.vote(user, -1)
+
+      expect(vote.votable).to eq another_answer
+      expect(vote.user_id).to eq user.id
+      expect(vote.count).to eq -1
+    end
+  end
+
+  context '.vote?' do
+    let!(:vote_up) { create(:vote, :up, user: user, votable: answer) }
+
+    it 'return true if user have the right to vote' do
+      expect(answer.vote?(user, 1)).to eq true
+    end
+
+    it 'return false if the user does not have the right to vote' do
+      expect(another_answer.vote?(user, 1)).to eq false
     end
   end
 end

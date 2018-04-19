@@ -1,10 +1,19 @@
 div id="answer-#{answer.id}"
   - @question.answers.each do |answer|
-  -if answer.best?
+  - if answer.best?
     .best-label
       p = 'Best answer'
   p = answer.body
   = render 'common/attachments', resource: answer
+  
+  p.total_votes data-id=answer.id
+    = answer.votes.sum(:count)
+    .error_vote
+  - if current_user&&!current_user.author?(answer)
+    p.vote_up.vote
+      = link_to 'vote up', polymorphic_path([:vote_up, answer]), method: :post, remote: true
+    p.vote_down.vote
+      = link_to 'vote down', polymorphic_path([:vote_down, answer]), method: :post, remote: true
 
   - if current_user&.author?(answer.question)
     = link_to 'Note as best', best_answer_path(answer), remote: true, method: :patch, class: 'best-answer-link', data: { answer_id: answer.id }
