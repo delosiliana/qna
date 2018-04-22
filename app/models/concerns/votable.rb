@@ -6,7 +6,7 @@ module Votable
   end
 
   def vote?(user, count)
-    self.votes.where(user: user, count: count).count > 0
+    self.votes.where(user: user, count: count).exists?
   end
 
   def vote(user, count)
