@@ -1,5 +1,7 @@
 p = question.title
 p = question.body
+
+h3 Attachments
 = render 'common/attachments', resource: question
 
 - if current_user&.author?(@question)
