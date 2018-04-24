@@ -15,4 +15,8 @@ module Votable
       self.votes.create!(user: user, count: count)
     end
   end
+
+  def sum
+    self.votes.sum(:count)
+  end
 end

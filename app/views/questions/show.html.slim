@@ -5,7 +5,7 @@ h1 Question
 
 h3 Votes
 p.total_votes data-id=@question.id
-  = @question.votes.sum(:count)
+  = @question.sum
   = render 'common/vote', resource: @question
 
 h3 Answers

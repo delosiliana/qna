@@ -4,13 +4,13 @@ div id="answer-#{answer.id}"
     .best-label
       p = 'Best answer'
   p = answer.body
-  
+
   h3 Attachments
   = render 'common/attachments', resource: answer
 
   h3 Votes
   p.total_votes data-id=answer.id
-    = answer.votes.sum(:count)
+    = answer.sum
     = render 'common/vote', resource: answer
 
   - if current_user&.author?(answer.question)
