@@ -33,21 +33,29 @@ RSpec.describe Answer, type: :model do
     end
   end
 
-  context '.vote' do
+  describe '#vote' do
     it 'change votes count' do
       expect{ another_answer.vote(user, -1) }.to change(Vote, :count).by 1
     end
 
-    it 'created vote have correct params' do
-      vote = another_answer.vote(user, -1)
+    context 'created vote have correct params' do
+      before { vote = another_answer.vote(user, -1) }
 
-      expect(vote.votable).to eq another_answer
-      expect(vote.user_id).to eq user.id
-      expect(vote.count).to eq -1
+      it 'belongs to answer' do
+        expect(vote.votable).to eq another_answer
+      end
+
+      it 'belongs to user' do
+        expect(vote.user_id).to eq user.id
+      end
+
+      it 'downvotes the count' do
+        expect(vote.count).to eq -1
+      end
     end
   end
 
-  context '.vote?' do
+  describe '#vote?' do
     let!(:vote_up) { create(:vote, :up, user: user, votable: answer) }
 
     it 'return true if user have the right to vote' do
