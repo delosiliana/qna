@@ -1,10 +1,17 @@
 div id="answer-#{answer.id}"
   - @question.answers.each do |answer|
-  -if answer.best?
+  - if answer.best?
     .best-label
       p = 'Best answer'
   p = answer.body
+
+  h3 Attachments
   = render 'common/attachments', resource: answer
+
+  h3 Votes
+  p.total_votes data-id=answer.id
+    = answer.sum
+    = render 'common/vote', resource: answer
 
   - if current_user&.author?(answer.question)
     = link_to 'Note as best', best_answer_path(answer), remote: true, method: :patch, class: 'best-answer-link', data: { answer_id: answer.id }
