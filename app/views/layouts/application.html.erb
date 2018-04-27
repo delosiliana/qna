@@ -2,9 +2,10 @@
 <html>
   <head>
     <title>Qna</title>
+    <%= Gon::Base.render_data %>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= action_cable_meta_tag %>
+    <%= stylesheet_link_tag   'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -15,7 +16,7 @@
     <% else %>
       <%= link_to 'Sign in', new_user_session_path %>
     <% end %>
-    
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>
