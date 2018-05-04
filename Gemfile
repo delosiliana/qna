@@ -25,6 +25,7 @@ gem 'carrierwave'
 gem 'remotipart'
 gem 'cocoon'
 gem 'skim'
+gem 'gon'
 
 
 # Use CoffeeScript for .coffee assets and views
