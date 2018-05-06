@@ -1,0 +1,28 @@
+- if @answer.user_id != gon.user_id
+  div class="answer-#{@answer.id}"
+    - if gon.user_id == gon.question_user_id
+      a class='best-answer-link' data-remote="true" rel="nofollow" data-method="patch" href="/answers/#{@answer.id}/best" Note as best
+
+    .total_votes
+      div class="#{@answer}-total_votes-#{@answer.id}" = "Votes: #{@total_votes}"
+      - if gon.user_id && gon.user_id != @answer.user_id
+        .links
+          p.vote_up.vote
+          a data-method="post" data-remote="true" href="/answers/#{@answer.id}/vote_up" rel="nofollow" vote up
+          p.vote_down.vote
+          a data-method="post" data-remote="true" href="/answers/#{@answer.id}/vote_down" rel="nofollow" vote down
+
+    p id="answers" = @answer.body
+
+    .attachments
+      - for attachment in @attachments
+        div id="attachment-file-#{attachment.id}"
+          a href="#{attachment.file.url}"#{attachment.file_name}
+
+
+
+
+
+
+
+
