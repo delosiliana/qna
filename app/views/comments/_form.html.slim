@@ -1,0 +1,5 @@
+= form_for [resource, resource.comments.build], html: { id: "new_comment_#{resource.class.name.underscore}_#{resource.id}" }, remote: true do |f|
+  p = f.label :body, 'Comment'
+  p = f.text_area :body
+  p = f.submit 'Сomment'
+

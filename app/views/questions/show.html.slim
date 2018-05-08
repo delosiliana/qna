@@ -3,6 +3,14 @@ h1 Question
 .question
   = render @question
 
+.comment_question
+  - if user_signed_in?
+    = link_to 'Add comment', '', class: 'add-comment-link', data: { resource_id: @question.id, resource_type: "question" }
+    = render 'comments/form', resource: @question
+  div class="question_#{@question.id}_comments comments"
+    b Comments:
+    = render @question.comments
+
 h3 Votes
 p.total_votes data-id=@question.id
   = @question.sum
