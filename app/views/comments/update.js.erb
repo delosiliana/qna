@@ -4,7 +4,7 @@ $('#error').remove();
     $('.comments').append('<div id="error"><%= j message %></div>');
   <% end %>
 <% else %>
-  $('.comment_<%= @comment.id %>').html('<%= j render @comment %>');
+  $('.comment_<%= @comment.id %>').html('<%= j render @comment %>').removeClass("comment");
 <% end %>
 
 
