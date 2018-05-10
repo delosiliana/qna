@@ -40,4 +40,35 @@ feature 'Any user can comment to question', %{
   scenario 'No authenticate user tries to add comment' do
     expect(page).to_not have_link 'Add comment'
   end
+
+  context 'multiply sessions' do
+    scenario 'added comments to question can be seen another user', js:  true do
+
+      Capybara.using_session('user') do
+        sign_in(user)
+        visit question_path(question)
+      end
+
+      Capybara.using_session('quest') do
+        visit question_path(question)
+      end
+
+      Capybara.using_session('user') do
+        within '.comment_question' do
+          click_on 'Add comment'
+          fill_in 'Comment', with: 'New comment to question'
+          click_on 'Сomment'
+
+          expect(page).to have_content 'New comment to question'
+        end
+      end
+
+      Capybara.using_session('quest') do
+        within '.comment_question' do
+
+          expect(page).to have_content 'New comment to question'
+        end
+      end
+    end
+  end
 end
