@@ -14,6 +14,7 @@ module Qna
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.action_cable.disable_request_forgery_protection = false
     # config generate testing controller
     config.generators do |g|
       g.test_framework :rspec,

@@ -13,6 +13,13 @@
 //= require jquery
 //= require rails-ujs
 //= require jquery.remotipart
+//= require skim
+//= require action_cable
 //= require cocoon
 //= require turbolinks
+//= require_tree ./templates
 //= require_tree .
+
+var App = App || {};
+App.cable = ActionCable.createConsumer();
+

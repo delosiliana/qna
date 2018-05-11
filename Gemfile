@@ -24,6 +24,9 @@ gem 'webdrivers', '~> 3.0'
 gem 'carrierwave'
 gem 'remotipart'
 gem 'cocoon'
+gem 'skim'
+gem 'gon'
+
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

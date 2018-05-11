@@ -1,0 +1,11 @@
+$('#error').remove();
+<% if @comment&.errors.present? %>
+  <% @comment.errors.full_messages.each do |message| %>
+    $('.comments').append('<div id="error"><%= j message %></div>');
+  <% end %>
+<% else %>
+  $('.comment_<%= @comment.id %>').html('<%= j render @comment %>').removeClass("comment");
+<% end %>
+
+
+

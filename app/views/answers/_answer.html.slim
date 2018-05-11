@@ -22,5 +22,15 @@ div id="answer-#{answer.id}"
           = f.label :body, 'Answer'
           = f.text_area :body
           = f.submit 'Save'
+  - if user_signed_in?
+    = link_to 'Add comment', '', class: 'add-comment-link', data: { resource_id: answer.id, resource_type: "answer" }
+    = render 'comments/form', resource: answer
+  div class='answer_#{answer.id}_comments'
+    h3 Comments:
+    = render answer.comments
+
+
+
+
 
 

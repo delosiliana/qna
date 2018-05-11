@@ -1,0 +1,2 @@
+div class ="comment_#{@comment.id} comment"
+  = @comment.body

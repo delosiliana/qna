@@ -5,6 +5,7 @@ RSpec.describe Question, type: :model do
   it { should have_many(:answers).dependent(:destroy) }
   it { should have_many :attachments }
   it { should have_many(:votes).dependent(:destroy) }
+  it { should have_many(:comments).dependent(:destroy) }
 
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
@@ -26,7 +27,7 @@ RSpec.describe Question, type: :model do
       it 'belongs to question' do
         expect(@vote.votable_id).to eq another_question.id
       end
-      
+
       it 'has polymorphic association Question' do
         expect(@vote.votable_type).to eq 'Question'
       end

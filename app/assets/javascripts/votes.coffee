@@ -6,3 +6,4 @@ $ ->
     $('.error_vote').html(e.detail[0])
 
 
+
