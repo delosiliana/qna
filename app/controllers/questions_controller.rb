@@ -3,49 +3,44 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:show, :index]
   before_action :load_question, only: [:show, :edit, :update, :destroy]
+  before_action :build_answer, only: :show
   after_action :publish_question, only: :create
 
+  respond_to :js, only: :update
+
   def index
-    @questions = Question.all
+    respond_with(@questions = Question.all)
   end
 
   def show
-    @answer = @question.answers.new
-    @answers = @question.answers.select(&:persisted?)
-    @answer.attachments.build
+    respond_with(@answers)
   end
 
   def new
-    @question = Question.new
-    @question.attachments.build
+    respond_with(@question = Question.new)
   end
 
   def edit
   end
 
   def create
-    @question = current_user.questions.new(question_params)
-
-    if @question.save
-      flash[:notice] = 'Your question successfully created.'
-      redirect_to @question
-    else
-      render :new
-    end
+    respond_with(@question = current_user.questions.create(question_params))
   end
 
   def update
     @question.update(question_params) if current_user.author?(@question)
+    respond_with @question
   end
 
   def destroy
-    if current_user.author?(@question)
-      @question.destroy
-    end
-    redirect_to questions_path
+    respond_with @question.destroy if current_user.author?(@question)
   end
 
   private
+
+  def build_answer
+    @answer = @question.answers.build
+  end
 
   def publish_question
     return if @question.errors.any?

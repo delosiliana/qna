@@ -26,6 +26,7 @@ gem 'remotipart'
 gem 'cocoon'
 gem 'skim'
 gem 'gon'
+gem 'responders'
 
 
 # Use CoffeeScript for .coffee assets and views
