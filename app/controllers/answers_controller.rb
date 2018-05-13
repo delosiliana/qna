@@ -3,32 +3,32 @@ class AnswersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_answer, only: [:update, :destroy, :best]
+  before_action :load_question, only: :create
 
   after_action :publish_answer, only: :create
 
+  respond_to :js
+
   def create
-    @question = Question.find(params[:question_id])
-    @answer = @question.answers.new(answer_params)
-    @answer.user = current_user
-    @answer.save
+    respond_with(@answer = @question.answers.create(answer_params.merge(user_id: current_user.id)))
   end
 
   def update
     if current_user.author?(@answer)
       @answer.update(answer_params)
-      @question = @answer.question
+      respond_with @answer
     end
   end
 
   def best
     if current_user.author?(@answer.question)
-      @answer.best!
+      respond_with(@answer.best!)
     end
   end
 
   def destroy
     if current_user.author?(@answer)
-      @answer.destroy
+      respond_with(@answer.destroy)
     end
   end
 
@@ -49,5 +49,10 @@ class AnswersController < ApplicationController
 
   def set_answer
     @answer = Answer.find(params[:id])
+    @question = @answer.question
+  end
+
+  def load_question
+    @question = Question.find(params[:question_id])
   end
 end
