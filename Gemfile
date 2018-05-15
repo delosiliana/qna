@@ -27,6 +27,8 @@ gem 'cocoon'
 gem 'skim'
 gem 'gon'
 gem 'responders'
+gem 'omniauth'
+gem 'omniauth-vkontakte'
 
 
 # Use CoffeeScript for .coffee assets and views
