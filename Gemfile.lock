@@ -52,6 +52,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (>= 2.0, < 4.0)
+    capybara-email (3.0.1)
+      capybara (>= 2.4, < 4.0)
+      mail
     capybara-webkit (1.15.0)
       capybara (>= 2.3, < 4.0)
       json
@@ -291,6 +294,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   capybara (~> 2.13)
+  capybara-email
   capybara-webkit
   carrierwave
   cocoon
