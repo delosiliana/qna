@@ -29,6 +29,7 @@ gem 'gon'
 gem 'responders'
 gem 'omniauth'
 gem 'omniauth-vkontakte'
+gem 'omniauth-twitter'
 
 
 # Use CoffeeScript for .coffee assets and views
