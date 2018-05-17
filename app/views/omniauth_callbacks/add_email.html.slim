@@ -1,0 +1,8 @@
+h2 Please enter email to complete your registration
+
+= form_tag register_path, method: :post do
+  p = label_tag :email, 'Email'
+  p = email_field_tag :email
+  p = hidden_field_tag :provider, @auth_info.provider
+  p = hidden_field_tag :uid, @auth_info.uid.to_s
+  p = submit_tag 'Submit'

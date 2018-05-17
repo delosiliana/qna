@@ -15,22 +15,32 @@ class User < ApplicationRecord
 
     email = auth.info[:email]
     user = User.where(email: email).first
+
     if user
       user.create_authorization(auth)
-    else
+    elsif email
       password = Devise.friendly_token[0, 20]
-      user = User.create!(email: email, password: password, password_confirmation: password)
+      user = User.new(email: email, password: password, password_confirmation: password)
+      user.skip_confirmation!
+      user.save!
       user.create_authorization(auth)
+    else
+      user = User.new
     end
-
     user
+  end
+
+  def author?(resource)
+    resource.user_id == id
   end
 
   def create_authorization(auth)
     self.authorizations.create(provider: auth.provider, uid: auth.uid)
   end
 
-  def author?(resource)
-    resource.user_id == id
+  def self.register_for_oauth(email, provider, uid)
+    password = Devise.friendly_token[0, 20]
+    user = User.create!(email: email, password: password, password_confirmation: password)
+    user.authorizations.create(provider: provider, uid: uid)
   end
 end
