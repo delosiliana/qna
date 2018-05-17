@@ -1,5 +1,5 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  before_action :define_oauth_from, only: [:vkontakte, :twitter]
+  before_action :sign_in_oauth_from_provider, only: [:vkontakte, :twitter]
   before_action :make_oauth, only: [:vkontakte, :twitter]
 
   def vkontakte
@@ -19,7 +19,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @provider_auth = request.env['omniauth.auth'].provider.capitalize
   end
 
-  def define_oauth_from
+  def sign_in_oauth_from_provider
     @user = User.find_for_oauth(request.env['omniauth.auth'])
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
