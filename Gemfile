@@ -11,7 +11,7 @@ gem 'rails', '~> 5.1.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 3.10'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -27,6 +27,9 @@ gem 'cocoon'
 gem 'skim'
 gem 'gon'
 gem 'responders'
+gem 'omniauth'
+gem 'omniauth-vkontakte'
+gem 'omniauth-twitter'
 
 
 # Use CoffeeScript for .coffee assets and views
@@ -58,6 +61,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing'
   gem 'launchy'
+  gem 'capybara-email'
 end
 
 group :development do
@@ -67,6 +71,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'letter_opener'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
