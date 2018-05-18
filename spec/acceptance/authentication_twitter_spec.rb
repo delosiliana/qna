@@ -18,7 +18,12 @@ feature 'User sign_in with twitter', %q{
       mock_twitter_auth_hash
       click_on 'Sign in with Twitter'
 
-      expect(page).to have_content 'Successfully authenticated from account'
+      open_email('twitter@test.com')
+      current_email.click_link 'Confirm my account'
+
+      click_on 'Sign in with Twitter'
+
+      expect(page).to have_content 'Successfully authenticated from Twitter account'
       expect(current_path).to eq root_path
     end
 

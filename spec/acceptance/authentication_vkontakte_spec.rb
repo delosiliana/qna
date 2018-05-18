@@ -25,7 +25,7 @@ feature 'User sign_in with vkontakte', %q{
 
       click_on 'Sign in with Vkontakte'
 
-      expect(page).to have_content 'Successfully authenticated from account'
+      expect(page).to have_content 'Successfully authenticated from Vkontakte account'
       expect(current_path).to eq root_path
     end
 
