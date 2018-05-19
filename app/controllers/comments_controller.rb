@@ -5,17 +5,18 @@ class CommentsController < ApplicationController
   after_action :publish_comment, only: :create
 
   respond_to :js
+  authorize_resource
 
   def create
     respond_with(@comment = @commentable.comments.create(comment_params.merge(user: current_user)))
   end
 
   def destroy
-    respond_with(@comment.destroy) if current_user.author?(@comment)
+    respond_with(@comment.destroy)
   end
 
   def update
-    @comment.update(comment_params) if current_user.author?(@comment)
+    @comment.update(comment_params)
     @commentable = @comment.commentable
     respond_with @comment
   end

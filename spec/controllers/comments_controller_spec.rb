@@ -61,7 +61,7 @@ RSpec.describe CommentsController, type: :controller do
 
       it 'render question show views' do
         delete :destroy, params: { id: comment_another, format: :js }
-        expect(response).to render_template :destroy
+        expect(response).to have_http_status(403)
       end
     end
   end

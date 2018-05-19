@@ -5,14 +5,14 @@ h3 Attachments
 = render 'common/attachments', resource: question
 
 .comment_question
-  - if user_signed_in?
+  - if can?(:create, Comment)
     = link_to 'Add comment', '', class: 'add-comment-link', data: { resource_id: @question.id, resource_type: "question" }
     = render 'comments/form', resource: @question
   div class="question_#{@question.id}_comments comments"
     b Comments:
     = render @question.comments
 
-- if current_user&.author?(@question)
+- if can?(:action, @question)
   = link_to 'Delete question', question_path, method: :Delete
   = link_to 'Edit question', '', class: 'edit-question-link', data: { question_id: question.id}
   = form_for question, remote: true, html: { id: "edit-question-#{question.id}" } do |f|

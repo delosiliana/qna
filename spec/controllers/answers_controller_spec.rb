@@ -102,7 +102,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'renders best template' do
         patch :best, params: { id: question.answers.first, format: :js }
-        expect(response).to render_template :best
+        expect(response).to have_http_status(403)
       end
     end
 

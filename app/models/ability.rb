@@ -4,6 +4,7 @@ class Ability
   attr_reader :user
 
   def initialize(user)
+    load_aliases
     @user = user
 
     if user
@@ -14,6 +15,11 @@ class Ability
   end
 
   protected
+
+  def load_aliases
+    alias_action :vote_up, :vote_down, to: :vote
+    alias_action :update, :destroy, to: :action
+  end
 
   def guest_abilities
     can :read, :all
@@ -26,8 +32,8 @@ class Ability
   def user_abilities
     guest_abilities
     can :create, [Question, Answer, Comment, Attachment]
-    can [:update, :destroy], [Question, Answer, Comment], { user_id: user.id }
-    can [:vote_up, :vote_down], [Question, Answer] do |votable|
+    can :action, [Question, Answer, Comment], { user_id: user.id }
+    can :vote, [Question, Answer] do |votable|
       !user.author?(votable)
     end
     can :best, Answer, question: { user_id: user.id }
