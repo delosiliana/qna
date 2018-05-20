@@ -30,6 +30,7 @@ gem 'responders'
 gem 'omniauth'
 gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
+gem 'cancancan'
 
 
 # Use CoffeeScript for .coffee assets and views

@@ -1,5 +1,6 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_action :sign_in_oauth_from_provider, only: [:vkontakte, :twitter, :register]
+  skip_authorization_check
 
   def vkontakte
   end

@@ -44,7 +44,7 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     it 'renders edit view' do
-      expect(response).to render_template :edit
+      expect(response).to redirect_to root_url
     end
   end
 

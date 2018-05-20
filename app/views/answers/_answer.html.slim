@@ -14,16 +14,16 @@
       = answer.sum
       = render 'common/vote', resource: answer
 
-    - if current_user&.author?(answer.question)
+    - if can?(:best, answer)
       = link_to 'Note as best', best_answer_path(answer), remote: true, method: :patch, class: 'best-answer-link', data: { answer_id: answer.id }
-    - if current_user&.author?(answer)
+    - if can?(:action, answer)
         = link_to 'Delete answer', answer, remote: true, method: :delete, class: 'delete-answer-link', data: { answer_id: answer.id }
         = link_to 'Edit ', '', class: 'edit-answer-link', data: { answer_id: answer.id }
         p = form_for [answer], remote: true, html: { id: "edit-answer-#{answer.id}" } do |f|
             = f.label :body, 'Answer'
             = f.text_area :body
             = f.submit 'Save'
-    - if user_signed_in?
+    - if can?(:create, Comment)
       = link_to 'Add comment', '', class: 'add-comment-link', data: { resource_id: answer.id, resource_type: "answer" }
       = render 'comments/form', resource: answer
     div class='answer_#{answer.id}_comments'
