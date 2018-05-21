@@ -64,6 +64,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'launchy'
   gem 'capybara-email'
+  gem 'json_spec'
 end
 
 group :development do

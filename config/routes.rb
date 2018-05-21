@@ -8,6 +8,14 @@ Rails.application.routes.draw do
     post '/register' => 'omniauth_callbacks#register'
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :profiles, only: :index do
+        get :me, on: :collection
+      end
+    end
+  end
+
   concern :votable do
     member do
       post :vote_up
