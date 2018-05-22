@@ -31,6 +31,7 @@ gem 'omniauth'
 gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 gem 'cancancan'
+gem 'doorkeeper', '4.2.6'
 
 
 # Use CoffeeScript for .coffee assets and views
@@ -63,6 +64,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'launchy'
   gem 'capybara-email'
+  gem 'json_spec'
 end
 
 group :development do
