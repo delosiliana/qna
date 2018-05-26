@@ -32,6 +32,9 @@ gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 gem 'cancancan'
 gem 'doorkeeper', '4.2.6'
+gem 'active_model_serializers', '~> 0.9.0'
+gem 'oj'
+gem 'oj_mimic_json'
 
 
 # Use CoffeeScript for .coffee assets and views
