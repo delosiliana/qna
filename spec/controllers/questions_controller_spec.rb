@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
   login_user
+  let(:object) { create(:question) }
   let(:question) { create(:question) }
+
+  it_behaves_like 'Votable Controller'
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 2, user: @user) }
@@ -154,77 +157,6 @@ RSpec.describe QuestionsController, type: :controller do
 
       it 're-renders update view' do
         expect(response).to render_template :update
-      end
-    end
-  end
-
-  describe 'PATCH #vote_up' do
-    login_user
-    context 'non author try to vote up' do
-      context 'user already has vote' do
-        before { create(:vote, :up, user: @user, votable: question) }
-
-        it 'dont chanhe votes' do
-          expect{ patch :vote_up, params: { id:question} }.to_not change(question.votes, :count)
-        end
-
-        it 'render error' do
-          patch :vote_up, params: { id:question }
-          expect(response.body).to eq 'You already voted'
-        end
-
-        it 'response error 422' do
-          patch :vote_up, params: { id:question }
-          expect(response).to have_http_status(422)
-        end
-      end
-    end
-    context 'author try to vote up' do
-      before { question.update(user: @user) }
-
-      it 'dont change votes' do
-        expect{ patch :vote_up, params: { id:question } }.to_not change(question.votes, :count)
-      end
-
-      it 'response error 422' do
-        patch :vote_up, params: { id:question }
-        expect(response).to have_http_status(422)
-      end
-    end
-  end
-
-  describe 'PATCH #vote_down' do
-    login_user
-    context 'noauthor try to vote down' do
-      context 'user already has vote' do
-        before { create(:vote, :down, user: @user, votable: question) }
-
-        it 'dont change votes' do
-          expect{ patch :vote_down, params: { id:question } }.to_not change(question.votes, :count)
-        end
-
-        it 'render error' do
-          patch :vote_down, params: { id:question }
-          expect(response.body).to eq 'You already voted'
-        end
-
-        it 'error 422' do
-          patch :vote_down, params: { id:question }
-          expect(response).to have_http_status(422)
-        end
-      end
-    end
-
-    context 'author try to vote down' do
-      before { question.update(user: @user) }
-
-      it 'dont chanhe votes' do
-        expect{ patch :vote_down, params: { id: question } }.to_not change(question.votes, :count)
-      end
-
-      it 'error 422' do
-        patch :vote_down, params: { id: question }
-        expect(response).to have_http_status(422)
       end
     end
   end

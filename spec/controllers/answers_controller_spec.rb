@@ -1,9 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
+  let(:user) { @user || create(:user) }
   let(:question) { create :question }
-  let(:answer) {create(:answer, user: user, question: question) }
+  let!(:object) {create(:answer, user: user, question: question) }
   let(:invalid_params) { { answer: attributes_for(:invalid_answer), question_id: question, format: :js } }
+
+  it_behaves_like 'Votable Controller'
 
   describe 'POST #create' do
     login_user
@@ -113,7 +116,7 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
-
+/
   describe 'PATCH #vote_up' do
     login_user
     let(:answer) { create(:answer) }
@@ -191,5 +194,5 @@ RSpec.describe AnswersController, type: :controller do
         expect(response).to have_http_status(422)
       end
     end
-  end
+  end/
 end

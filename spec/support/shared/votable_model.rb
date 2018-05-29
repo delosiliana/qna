@@ -7,12 +7,11 @@ shared_examples_for 'Votable Model' do
     context 'create a vote with the desired parameters' do
       before { @vote = another.vote(user, -1) }
 
-      it 'belongs to question' do
+      it 'belongs to resource id' do
         expect(@vote.votable_id).to eq another.id
       end
 
-      /под вопросом/
-      it 'has polymorphic association Question' do
+      it 'has polymorphic association resource object' do
         expect(@vote.votable_type).to eq object
       end
 
