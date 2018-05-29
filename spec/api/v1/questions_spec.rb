@@ -76,10 +76,12 @@ describe 'Questions API' do
       let(:access_token) { create(:access_token) }
       let!(:attachment) { create(:attachment, attachable: question) }
       let!(:comment) { create(:comment, commentable: question, user: user)}
+      let!(:object) { "question"}
 
       before { get "/api/v1/questions/#{question.id}", params: { format: :json, access_token: access_token.token } }
 
       it_behaves_like 'API Status 200'
+      it_behaves_like 'API Attachable'
 
       %w(id title body created_at updated_at).each do |attr|
         it "question object contains #{attr}" do
@@ -87,17 +89,7 @@ describe 'Questions API' do
         end
       end
 
-      context 'attachments' do
-        it 'attachment include question object' do
-          expect(response.body).to have_json_size(1).at_path("question/attachments")
-        end
 
-        %w(url).each do |attr|
-          it "question attachment object contains #{attr}" do
-            expect(response.body).to be_json_eql(attachment.file.send(attr.to_sym).to_json).at_path("question/attachments/0/#{attr}")
-          end
-        end
-      end
 
       context 'comments' do
         it 'comments question object' do
