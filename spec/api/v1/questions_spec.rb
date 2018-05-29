@@ -10,14 +10,12 @@ describe 'Questions API' do
       let!(:questions) { create_list(:question, 2, user: user) }
       let(:question) { questions.first }
       let!(:answer) { create(:answer, question: question, user: user) }
+      let!(:object) { "questions" }
 
       before { get '/api/v1/questions', params: { format: :json, access_token: access_token.token } }
 
       it_behaves_like 'API Status 200'
-
-      it 'returns list of questions' do
-        expect(response.body).to have_json_size(2).at_path('questions')
-      end
+      it_behaves_like 'API List'
 
       %w(id title body created_at updated_at).each do |attr|
         it "question object contains #{attr}" do

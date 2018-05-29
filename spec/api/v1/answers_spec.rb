@@ -8,6 +8,7 @@ describe 'Answers API' do
   let(:answer) { answers.first }
   let!(:comment) { create(:comment, commentable: answer, user: user) }
   let!(:attachment) { create(:attachment, attachable: answer) }
+  let!(:object) { "answers" }
 
   describe 'GET /index' do
     it_behaves_like 'API Authenticable'
@@ -16,10 +17,7 @@ describe 'Answers API' do
       before { get "/api/v1/questions/#{question.id}/answers", params: { format: :json, access_token: access_token.token } }
 
       it_behaves_like 'API Status 200'
-
-      it 'returns list of questions' do
-        expect(response.body).to have_json_size(2).at_path('answers')
-      end
+      it_behaves_like 'API List'
 
       %w(id body created_at updated_at).each do |attr|
         it "answer object contains #{attr}" do
