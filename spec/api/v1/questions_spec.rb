@@ -13,9 +13,7 @@ describe 'Questions API' do
 
       before { get '/api/v1/questions', params: { format: :json, access_token: access_token.token } }
 
-      it 'returns 200 status code' do
-        expect(response).to be_success
-      end
+      it_behaves_like 'API Status 200'
 
       it 'returns list of questions' do
         expect(response.body).to have_json_size(2).at_path('questions')
@@ -43,7 +41,7 @@ describe 'Questions API' do
         end
       end
     end
-    
+
     def do_request(options = {})
       get '/api/v1/questions', params: { format: :json }.merge(options)
     end
@@ -58,9 +56,7 @@ describe 'Questions API' do
 
       before { post '/api/v1/questions/', params: params }
 
-      it 'returns 200 status code' do
-        expect(response).to be_success
-      end
+      it_behaves_like 'API Status 200'
 
       it 'new question add to database' do
         expect{ post '/api/v1/questions/', params: params }.to change { Question.count }.by(1)
@@ -85,9 +81,7 @@ describe 'Questions API' do
 
       before { get "/api/v1/questions/#{question.id}", params: { format: :json, access_token: access_token.token } }
 
-      it 'returns 200 status code' do
-        expect(response).to be_success
-      end
+      it_behaves_like 'API Status 200'
 
       %w(id title body created_at updated_at).each do |attr|
         it "question object contains #{attr}" do

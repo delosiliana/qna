@@ -15,9 +15,7 @@ describe 'Answers API' do
     context 'authorized' do
       before { get "/api/v1/questions/#{question.id}/answers", params: { format: :json, access_token: access_token.token } }
 
-      it 'returns 200 status code' do
-        expect(response).to be_success
-      end
+      it_behaves_like 'API Status 200'
 
       it 'returns list of questions' do
         expect(response.body).to have_json_size(2).at_path('answers')
@@ -42,9 +40,7 @@ describe 'Answers API' do
       let(:params) { { action: :create, format: :json, access_token: access_token.token, answer: attributes_for(:answer) } }
       before { post "/api/v1/questions/#{question.id}/answers", params: params }
 
-      it 'returns 200 status code' do
-        expect(response).to be_success
-      end
+      it_behaves_like 'API Status 200'
 
       it 'saves new answer database' do
         expect { post "/api/v1/questions/#{question.id}/answers", params: params }.to change(question.answers, :count).by(1)
@@ -62,9 +58,7 @@ describe 'Answers API' do
     context 'authorized' do
       before { get "/api/v1/answers/#{answer.id}", params: {format: :json, access_token: access_token.token } }
 
-      it 'returns 200 status code' do
-        expect(response).to be_success
-      end
+      it_behaves_like 'API Status 200'
 
       %w(body created_at updated_at).each do |attr|
         it "answer object contains #{attr}" do
