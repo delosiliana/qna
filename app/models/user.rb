@@ -9,6 +9,12 @@ class User < ApplicationRecord
   has_many :comments
   has_many :authorizations, dependent: :destroy
 
+  def self.send_daily_digest
+    find_each.each do |user|
+      DailyMailer.digest(user).deliver_later
+    end
+  end
+
   def self.find_for_oauth(auth)
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
     return authorization.user if authorization
