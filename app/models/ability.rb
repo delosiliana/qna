@@ -19,6 +19,7 @@ class Ability
   def load_aliases
     alias_action :vote_up, :vote_down, to: :vote
     alias_action :update, :destroy, to: :action
+    alias_action :create, :destroy, to: :action_sub
   end
 
   def guest_abilities
@@ -41,5 +42,6 @@ class Ability
       user.author?(attachment.attachable)
     end
     can :me, User, id: user.id
+    can :action_sub, Subscription
   end
 end

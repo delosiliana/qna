@@ -11,6 +11,7 @@ RSpec.describe Question, type: :model do
   it { should validate_presence_of :body }
 
   it { should accept_nested_attributes_for :attachments }
+  it { should have_many(:subscriptions).dependent(:destroy) }
 
   let!(:user) { create(:user) }
   let!(:question) { create(:question, user: user) }

@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :comments
   has_many :authorizations, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
   def self.send_daily_digest
     find_each.each do |user|
@@ -42,5 +43,10 @@ class User < ApplicationRecord
 
   def create_authorization(auth)
     self.authorizations.create(provider: auth.provider, uid: auth.uid)
+  end
+
+  def subscribe_for?(question)
+    subscriptions.each { |subscription| return subscription if subscription.question == question }
+    false
   end
 end

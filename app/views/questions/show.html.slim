@@ -24,6 +24,14 @@ h3 Answers
 
   p = f.submit 'Answer'
 
+- if can?(:action_sub, Subscription)
+  .subscription
+    .sub
+      - if subscription = (current_user.subscribe_for?(@question))
+        = render 'subscriptions/unsubscription', subscription: subscription
+      - else
+        = render 'subscriptions/subscription', question: @question
+
 
 
 

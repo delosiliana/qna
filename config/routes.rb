@@ -44,6 +44,8 @@ Rails.application.routes.draw do
 
   resources :attachments, only: [:destroy]
 
+  resources :subscriptions, only: [:create, :destroy]
+
   mount ActionCable.server => '/cable'
 
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

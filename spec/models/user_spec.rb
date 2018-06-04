@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:questions) }
   it { should have_many(:comments) }
   it { should have_many(:authorizations).dependent(:destroy) }
+  it { should have_many(:subscriptions).dependent(:destroy) }
 
   let(:user) { create :user }
   let(:question) { create(:question, user: user) }
