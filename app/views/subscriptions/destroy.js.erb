@@ -5,5 +5,5 @@ $('#error').remove();
   <% end %>
 <% else %>
   $('.flash').html("<%= flash[:notice] %>");
-  $('.sub').html('<%= j render 'subscriptions/subscriptions', question: @subscription.question %>');
+  $('.sub').html('<%= j render 'subscriptions/subscription', question: @subscription.question %>');
 <% end %>

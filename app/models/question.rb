@@ -8,4 +8,10 @@ class Question < ApplicationRecord
   belongs_to :user
 
   validates :title, :body, presence: true
+
+  private
+
+  def subscribe_author
+    subscription.create(user: user)
+  end
 end

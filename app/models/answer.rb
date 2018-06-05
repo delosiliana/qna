@@ -8,6 +8,8 @@ class Answer < ApplicationRecord
 
   validates :body, presence: true
 
+  after_commit :notice_subscribers, on: :create
+
   scope :ordered, -> { order(best: :desc) }
 
   def best!
@@ -16,5 +18,9 @@ class Answer < ApplicationRecord
       prev_best&.update!(best: false)
       update!(best: true)
     end
+  end
+
+  def notice_subscribers
+    NotifySubscribersJob.perform_later(question)
   end
 end
