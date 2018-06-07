@@ -9,9 +9,11 @@ class Question < ApplicationRecord
 
   validates :title, :body, presence: true
 
+  after_create :subscribe_author
+
   private
 
   def subscribe_author
-    subscription.create(user: user)
+    subscriptions.create(user: user)
   end
 end

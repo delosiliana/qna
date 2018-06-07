@@ -8,7 +8,7 @@ class Answer < ApplicationRecord
 
   validates :body, presence: true
 
-  after_commit :notice_subscribers, on: :create
+  after_save :notice_subscribers, on: :create
 
   scope :ordered, -> { order(best: :desc) }
 

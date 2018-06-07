@@ -5,7 +5,7 @@ class NotifySubscribersJob < ApplicationJob
     question = answer.question
 
     question.subscriptions.find_each do |subscription|
-      AnswerNotificationsMailer.notify(subscription.user, answer).deliver_later
+      QuestionsMailer.notify(subscription.user, answer).deliver_later
     end
   end
 end

@@ -7,7 +7,7 @@ RSpec.describe NotifySubscribersJob, type: :job do
 
   it 'sends mail with answer to subscribers' do
     question.subscriptions.find_each do |subscription|
-      expect(Mailer).to receive(:notify).with(subscription.user, asnwer).and_call_original
+      expect(QuestionsMailer).to receive(:notify).with(subscription.user, answer).and_call_original
     end
     NotifySubscribersJob.perform_now(answer)
   end
