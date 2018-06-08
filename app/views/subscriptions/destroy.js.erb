@@ -1,0 +1,9 @@
+$('#error').remove();
+<% if @subscription&.errors.present? %>
+  <% @subscription.errors.full_messages.each do |message| %>
+    $('.subscription').append('<div id="error"><%= j message %></div>');
+  <% end %>
+<% else %>
+  $('.flash').html("<%= flash[:notice] %>");
+  $('.sub').html('<%= j render 'subscriptions/subscription', question: @subscription.question %>');
+<% end %>

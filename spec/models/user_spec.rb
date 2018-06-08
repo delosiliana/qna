@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:questions) }
   it { should have_many(:comments) }
   it { should have_many(:authorizations).dependent(:destroy) }
+  it { should have_many(:subscriptions).dependent(:destroy) }
 
   let(:user) { create :user }
   let(:question) { create(:question, user: user) }
@@ -20,6 +21,15 @@ RSpec.describe User, type: :model do
 
     it 'return false if user no author resource' do
       expect(no_author.author?(question)).to be false
+    end
+  end
+
+  describe '.send_daile_digest' do
+    let(:users) { create_list(:user, 2) }
+
+    it 'should send daily digest to all users' do
+      users.each { |user| expect(DailyMailer).to receive(:digest).with(user).and_call_original }
+      User.send_daily_digest
     end
   end
 

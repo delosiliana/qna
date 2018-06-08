@@ -31,7 +31,7 @@ class Ability
 
   def user_abilities
     guest_abilities
-    can :create, [Question, Answer, Comment, Attachment]
+    can :create, [Question, Answer, Comment, Attachment, Subscription]
     can :action, [Question, Answer, Comment], { user_id: user.id }
     can :vote, [Question, Answer] do |votable|
       !user.author?(votable)
@@ -41,5 +41,6 @@ class Ability
       user.author?(attachment.attachable)
     end
     can :me, User, id: user.id
+    can :destroy, Subscription, user_id: user.id
   end
 end
