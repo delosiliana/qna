@@ -13,7 +13,7 @@ RSpec.describe Question, type: :model do
   it { should accept_nested_attributes_for :attachments }
   it { should have_many(:subscriptions).dependent(:destroy) }
 
-  let!(:user) { create(:user) }
+  let(:user) { @user || create(:user) }
   let!(:question) { create(:question, user: user) }
   let(:another) { create(:question) }
   let(:object) { 'Question' }
@@ -23,6 +23,12 @@ RSpec.describe Question, type: :model do
   describe 'subscribe author question' do
     it 'the author signed on for the answers to your question' do
       expect(question.subscriptions.count).to eq 1
+      question.save!
+    end
+
+    it 'subscribe author question have subscribe' do
+      question.save!
+      expect(question.subscriptions.first.user).to eq(question.user)
     end
   end
 end
