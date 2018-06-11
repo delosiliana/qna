@@ -37,6 +37,8 @@ gem 'oj'
 gem 'oj_mimic_json'
 gem 'sidekiq'
 gem 'whenever'
+gem 'mysql2'
+gem 'thinking-sphinx'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
