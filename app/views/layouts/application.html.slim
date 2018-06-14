@@ -20,3 +20,9 @@ html
     p.alert
       = alert
     = yield
+
+    p = form_tag("/search", method: "get") do
+      = label_tag :query, ""
+      = text_field_tag :query, params[:query]
+      = select_tag(:context, options_for_select(Search::CONTEXTS, params[:context]))
+      = submit_tag "Search"
