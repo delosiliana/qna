@@ -25,6 +25,9 @@ html lang="en"
           a.navbar-brand href="#"Qna
           .navbar-collapse.collapse.navbar-responsive-collapse
             ul.nav.navbar-nav
+              li = link_to "Question", root_path
+              li = link_to "New question", new_question_path
+            ul.nav.navbar-nav.navbar-right
               li = link_to "Sign Up", new_user_registration_path
               - if user_signed_in?
                 li = link_to "Sign out", destroy_user_session_path, method: :delete
@@ -35,16 +38,16 @@ html lang="en"
       .row
         .col-lg-9
           = bootstrap_flash
-          p.alert
-            = alert
           = yield
+        .col-lg-3
+          .well.sidebar-nav
+            h3 Search
+            ul.nav.nav-list
+              li = form_tag("/search", method: "get") do
+                = label_tag :query, ""
+                = text_field_tag :query, params[:query]
+                = select_tag(:context, options_for_select(Search::CONTEXTS, params[:context]))
+                = submit_tag "Search"
 
-    p = form_tag("/search", method: "get") do
-      = label_tag :query, ""
-      = text_field_tag :query, params[:query]
-      = select_tag(:context, options_for_select(Search::CONTEXTS, params[:context]))
-      p = submit_tag "Search"
-
-      footer
-        p &copy; Company 2018
+    = render 'layouts/footer'
 

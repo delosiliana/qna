@@ -11,8 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require rails-ujs
 //= require twitter/bootstrap
+//= require rails-ujs
 //= require jquery.remotipart
 //= require skim
 //= require action_cable
