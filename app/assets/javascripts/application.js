@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require rails-ujs
+//= require twitter/bootstrap
 //= require jquery.remotipart
 //= require skim
 //= require action_cable
