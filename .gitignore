@@ -40,7 +40,7 @@ config/secrets.yml
 /public/tmp
 /public/uploads
 /public/spec
-
+/public/assets
 
 
 # coverage files
