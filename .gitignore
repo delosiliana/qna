@@ -43,7 +43,6 @@ config/secrets.yml
 /public/assets
 
 
-
 # coverage files
 /coverage
 
