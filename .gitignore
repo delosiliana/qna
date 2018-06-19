@@ -53,6 +53,8 @@ certs/
 /log
 .powenv
 
+.env
+
 # Ignore application configuration
 /config/application.yml
 .zeus.sock

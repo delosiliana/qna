@@ -41,6 +41,8 @@ gem 'mysql2'
 gem 'thinking-sphinx'
 gem 'therubyracer'
 gem 'twitter-bootstrap-rails'
+gem 'dotenv'
+gem 'dotenv-deployment', require: 'dotenv/deployment'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -73,6 +75,13 @@ group :test do
   gem 'launchy'
   gem 'capybara-email'
   gem 'json_spec'
+end
+
+group :development do
+  gem 'capistrano', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
 end
 
 group :development do
