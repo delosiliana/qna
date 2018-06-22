@@ -2,6 +2,7 @@ h2 Result search:
 - if @results.empty?
   p No result
 - else
+  p You have #{@results.size} results:
   - @results.each do |resource|
     = render :partial => "search/#{resource.class.name.downcase}", locals: { resource: resource }
 
