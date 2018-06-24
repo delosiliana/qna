@@ -1,5 +1,6 @@
-p = question.title
-p = question.body
+- cache question do
+  p = question.title
+  p = question.body
 
 h3 Attachments
 = render 'common/attachments', resource: question
