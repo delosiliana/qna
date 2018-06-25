@@ -1,14 +1,13 @@
 h1 Question
 
-.question
-  = render @question
+-cache @question do
+  .question
+    = render @question
 
 h3 Votes
 p.total_votes data-id=@question.id
   = @question.sum
   = render 'common/vote', resource: @question
-
-h3 Answers
 
 .answers
   = render @question.answers.ordered
